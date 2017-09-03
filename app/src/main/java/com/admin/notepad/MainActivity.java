@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        // 测试
         if(true){
             setContentView(R.layout.activity_main);
             new Handler().postDelayed(r, 5000);
