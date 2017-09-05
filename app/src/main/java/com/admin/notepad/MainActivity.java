@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
         if(true){
             setContentView(R.layout.activity_main);
-            new Handler().postDelayed(r, 3000);
+            new Handler().postDelayed(r, 5000);
         }else{
             setContentView(R.layout.app_start_page);
             password = (EditText)findViewById(R.id.password1);

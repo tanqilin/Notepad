@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,15 +18,19 @@ import android.view.MenuItem;
 
 import com.admin.notepad.R;
 
-public class IndexActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class IndexActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private SwipeRefreshLayout swipe_refresh;   // 下拉刷新
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
+
+        swipe_refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("我的小日记");
 
         // 悬浮图标
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -44,38 +49,16 @@ public class IndexActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.index, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        // 设置下拉刷新
+        swipe_refresh.setColorSchemeResources(R.color.colorAccent);
+        swipe_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // 响应下拉动作
+                swipe_refresh.setRefreshing(false); // 关闭下拉刷新
+            }
+        });
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

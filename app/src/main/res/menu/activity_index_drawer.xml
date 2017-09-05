@@ -11,13 +11,13 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="日志管理" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="我这天气" />
-        <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
             android:title="分组设置" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="我这天气" />
     </group>
 
     <item android:title="就不告诉你">
