@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.admin.notepad.MainActivity;
 import com.admin.notepad.R;
 
 public class IndexActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -77,8 +78,8 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_setting) {
+            SettingActivity.actionStart(IndexActivity.this);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
