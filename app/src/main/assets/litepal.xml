@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 建立实体到数据库的映射 -->
+
+<litepal>
+    <dbname value="weather"></dbname>
+
+    <version value="1"></version>
+
+    <!--注册数据库中的表-->
+    <list>
+        <!-- 用于天气的地区表 -->
+        <mapping class="com.admin.notepad.db.Province"></mapping>
+        <mapping class="com.admin.notepad.db.City"></mapping>
+        <mapping class="com.admin.notepad.db.County"></mapping>
+
+        <!-- App刚需表 -->
+        <mapping class="com.admin.notepad.db.User"></mapping>
+        <mapping class="com.admin.notepad.db.UserLog"></mapping>
+        <mapping class="com.admin.notepad.db.LogImage"></mapping>
+        <mapping class="com.admin.notepad.db.Group"></mapping>
+    </list>
+</litepal>
