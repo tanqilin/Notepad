@@ -14,16 +14,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_marginBottom="80dp"
                 android:orientation="vertical">
                 <EditText
                     android:id="@+id/password1"
-                    android:layout_width="200dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:maxLength="6"
                     android:textSize="20dp"
                     android:gravity="center"
                     android:inputType="number"
-                    android:hint="在这里输入你的密码"/>
+                    android:hint="嗯哼？"/>
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

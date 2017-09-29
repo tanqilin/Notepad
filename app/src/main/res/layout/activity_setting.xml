@@ -5,27 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#f5f5f5"
     tools:context="com.admin.notepad.index.SettingActivity">
-        <!--导航栏-->
-        <include
-            layout="@layout/define_top_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <!--<android.support.design.widget.AppBarLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:theme="@style/AppTheme.AppBarOverlay">-->
-
-            <!--<android.support.v7.widget.Toolbar-->
-                <!--android:id="@+id/toolbar"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="?attr/actionBarSize"-->
-                <!--android:background="?attr/colorAccent"-->
-                <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
-                <!--app:popupTheme="@style/AppTheme.PopupOverlay"-->
-                <!--app:layout_scrollFlags="scroll|enterAlways|snap"/>-->
-
-        <!--</android.support.design.widget.AppBarLayout>-->
+    <!--导航栏-->
+    <include
+        layout="@layout/define_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <ScrollView
         android:id="@+id/weather_layout"
@@ -43,7 +29,8 @@
 
             <LinearLayout style="@style/wrap_layout" >
                 <!-- 上圆角-->
-                <LinearLayout style="@style/top_layout">
+                <LinearLayout
+                    style="@style/top_layout">
                     <TextView style="@style/usertext" android:text="修改资料" />
                     <ImageView style="@style/img_arrow"/>
                 </LinearLayout>
@@ -52,15 +39,33 @@
                 <View style="@style/bg_line"/>
 
                 <!-- 无圆角-->
-                <LinearLayout style="@style/mid_layout">
-                    <TextView style="@style/usertext" android:text="设置密码" />
-                    <ImageView style="@style/img_arrow"/>
+                <LinearLayout
+                    style="@style/mid_layout">
+                    <TextView
+                        android:textColor="@color/text_clo"
+                        android:layout_width="0dp"
+                        android:layout_weight="7"
+                        android:layout_height="wrap_content"
+                        android:bottomLeftRadius="3dp"
+                        android:text="开启密码锁" />
+                    <!--<ImageView style="@style/img_arrow"/>-->
+                    <Switch
+                        android:id="@+id/switch_save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:switchMinWidth="20dp"
+                        android:textOn=" 开 "
+                        android:textOff=" 关 "
+                        android:thumb="@drawable/thumb"
+                        android:track="@drawable/track" />
                 </LinearLayout>
 
                 <View style="@style/bg_line"/>
                 <!-- 下圆角-->
-                <LinearLayout style="@style/bottom_layout">
-                    <TextView style="@style/usertext" android:text="开启密码锁" />
+                <LinearLayout
+                    android:id="@+id/set_password"
+                    style="@style/bottom_layout">
+                    <TextView style="@style/usertext" android:text="设置密码" />
                     <ImageView style="@style/img_arrow"/>
                 </LinearLayout>
 

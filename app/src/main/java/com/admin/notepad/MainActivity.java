@@ -1,5 +1,6 @@
 package com.admin.notepad;
 
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,8 +22,13 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 隐藏标题栏,状态栏
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        if(true){
+        SharedPreferences pref = getSharedPreferences("Setting",MODE_PRIVATE);
+        boolean safe = pref.getBoolean("safe", false);
+        if(!safe){
             setContentView(R.layout.activity_main);
             new Handler().postDelayed(r, 5000);
         }else{
@@ -43,11 +49,14 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
         @Override
         public void afterTextChanged(Editable s) {
-            if(s.toString().equals("706501")){
+            // 验证登录密码
+            SharedPreferences pref = getSharedPreferences("Setting",MODE_PRIVATE);
+            String password = pref.getString("password", "000000");
+            if(s.toString().equals(password)){
                 IndexActivity.actionStart(MainActivity.this);
                 finish();
             }
-            if(s.toString().length() > 5 && !(s.toString().equals("706501")))
+            if(s.toString().length() > 5 && !(s.toString().equals(password)))
                 Toast.makeText(MainActivity.this,"密码不对噢！",Toast.LENGTH_LONG).show();
         }
     };

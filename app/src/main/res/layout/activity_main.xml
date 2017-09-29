@@ -9,13 +9,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_marginBottom="50dp"
         android:gravity="center_horizontal|center_vertical">
 
         <!-- 把图片圆形化 -->
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/icon_image"
-            android:layout_width = "80dp"
-            android:layout_height = "80dp"
+        <!--<de.hdodenhof.circleimageview.CircleImageView-->
+            <!--android:id="@+id/icon_image"-->
+            <!--android:layout_width = "100dp"-->
+            <!--android:layout_height = "100dp"-->
+            <!--android:padding="5dp"-->
+            <!--android:src="@drawable/app"/>-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:src="@drawable/app"/>
         <TextView
             android:layout_width="wrap_content"
