@@ -7,7 +7,7 @@ import org.litepal.crud.DataSupport;
  * 用户日志分组表
  */
 
-public class Group extends DataSupport {
+public class LogGroup extends DataSupport {
     private int id;
     private int userId;
     private String groupName;

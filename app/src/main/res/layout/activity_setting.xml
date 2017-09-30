@@ -73,8 +73,10 @@
 
             <LinearLayout style="@style/wrap_layout" >
                 <!-- 上圆角-->
-                <LinearLayout style="@style/top_layout">
-                    <TextView style="@style/usertext" android:text="修改城市" />
+                <LinearLayout
+                    android:id="@+id/change_city"
+                    style="@style/top_layout">
+                    <TextView style="@style/usertext" android:text="切换城市" />
                     <ImageView style="@style/img_arrow"/>
                 </LinearLayout>
 

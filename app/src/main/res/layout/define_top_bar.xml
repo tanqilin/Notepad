@@ -18,13 +18,13 @@
         android:rotation="180"/>
 
     <TextView
+        android:id="@+id/app_title"
         android:layout_width="0dp"
         android:layout_weight="8"
         android:layout_height="wrap_content"
         android:gravity="center|center_horizontal|center_vertical"
         android:textSize="20dp"
-        android:textColor="@color/white"
-        android:text="设置中心"/>
+        android:textColor="@color/white"/>
 
     <TextView
         android:layout_width="0dp"

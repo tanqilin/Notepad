@@ -19,6 +19,7 @@ import com.admin.notepad.index.IndexActivity;
 public class MainActivity extends AppCompatActivity  implements View.OnClickListener{
 
     private EditText password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
             setEditTextFocusable(password);
         }
     }
+
     // 监听文本框输入变化
     private TextWatcher watcher = new TextWatcher() {
         @Override

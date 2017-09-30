@@ -17,12 +17,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.admin.notepad.MainActivity;
 import com.admin.notepad.R;
 
 public class IndexActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+    //记录用户首次点击返回键的时间,用于实现双击退出应用功能
+    private long firstTime = 0;
     private SwipeRefreshLayout swipe_refresh;   // 下拉刷新
 
     @Override
@@ -77,8 +79,8 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_slideshow) {
-
+        } else if (id == R.id.nav_weather) {
+            WeatherActivity.actionStart(IndexActivity.this);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -97,5 +99,17 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
     public static void actionStart(Context context){
         Intent intent = new Intent(context,IndexActivity.class);
         context.startActivity(intent);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        long secondTime = System.currentTimeMillis();
+        if (secondTime - firstTime > 2000) {
+            Toast.makeText(IndexActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            firstTime = secondTime;
+        } else {
+            System.exit(0);
+        }
     }
 }

@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.admin.notepad">
 
+    <!-- 表明该应用需要使用网络请求，需要用户允许才能使用 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
@@ -24,9 +27,15 @@
             android:label="@string/title_activity_index"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:theme="@style/AppTheme.NoActionBar"
             android:name=".index.SettingActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".index.ChangeCityActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".index.WeatherActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

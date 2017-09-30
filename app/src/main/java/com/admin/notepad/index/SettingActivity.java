@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.admin.notepad.R;
@@ -31,7 +32,9 @@ import com.admin.notepad.R;
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener{
     private ImageView comeBack;
     private Switch setSave;
+    private TextView appTitle;
     private LinearLayout setPassword;
+    private LinearLayout changeCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +45,14 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_setting);
         comeBack = (ImageView) findViewById(R.id.come_back);
         setSave = (Switch) findViewById(R.id.switch_save);
+        appTitle = (TextView) findViewById(R.id.app_title);
         setPassword = (LinearLayout) findViewById(R.id.set_password);
-
+        changeCity = (LinearLayout) findViewById(R.id.change_city);
 
         setPassword.setOnClickListener(this);
+        changeCity.setOnClickListener(this);
         comeBack.setOnClickListener(this);
+        appTitle.setText("设置中心");
 
         // 根据缓存判断是否开启安全保护
         SharedPreferences pref = getSharedPreferences("Setting",MODE_PRIVATE);
@@ -77,6 +83,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.set_password:
                 showPopupWindow(SettingActivity.this,SettingActivity.this.findViewById(R.id.set_password));
                 break;
+            case R.id.change_city:
+                ChangeCityActivity.actionStart(SettingActivity.this); break;
             default:break;
         }
     }
