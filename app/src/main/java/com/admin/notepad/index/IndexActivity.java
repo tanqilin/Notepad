@@ -31,6 +31,7 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
     //记录用户首次点击返回键的时间,用于实现双击退出应用功能
     private long firstTime = 0;
     private SwipeRefreshLayout swipe_refresh;   // 下拉刷新
+    private NavigationView navigationView;
     private ImageView drawerLayoutBack;
     private ImageView drawerLayoutHead;
     @Override
@@ -62,13 +63,9 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // 抽屉中的控件不能直接获取到
-        View headerView = navigationView.getHeaderView(0);
-        drawerLayoutBack = (ImageView) headerView.findViewById(R.id.index_background);
-        drawerLayoutHead = (ImageView) headerView.findViewById(R.id.icon_image);
         initDrawerUserSetting();
 
         // 设置下拉刷新
@@ -105,12 +102,16 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        initDrawerUserSetting();
         return true;
     }
 
     // 初始化抽屉菜单中用户的设置信息
     private void initDrawerUserSetting(){
+        // 抽屉中的控件不能直接获取到
+        View headerView = navigationView.getHeaderView(0);
+        drawerLayoutBack = (ImageView) headerView.findViewById(R.id.index_background);
+        drawerLayoutHead = (ImageView) headerView.findViewById(R.id.icon_image);
+
         // 从缓存中加载用户设置好的图片
         SharedPreferences pref = getSharedPreferences("Setting",MODE_PRIVATE);
         String background = pref.getString("background", FileUtil.getLocalPath()+"/image/background.jpg");
