@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
         // 应用启动时创建应用根目录
         FileUtil.createAppDirectory();
-        // 创建一个文件夹用来存放设置图片
         FileUtil.createFileDir("/image");
         FileUtil.createFileDir("/cache");
 
@@ -88,6 +87,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         editText.requestFocus();
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
+
     @Override
     public void onClick(View v){
 

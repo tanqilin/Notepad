@@ -114,10 +114,12 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
 
         // 从缓存中加载用户设置好的图片
         SharedPreferences pref = getSharedPreferences("Setting",MODE_PRIVATE);
-        String background = pref.getString("background", FileUtil.getLocalPath()+"/image/background.jpg");
-        String headimage = pref.getString("head", FileUtil.getLocalPath()+"/image/background.jpg");
-        drawerLayoutBack.setImageURI(Uri.parse(background));
-        drawerLayoutHead.setImageURI(Uri.parse(headimage));
+        String background = pref.getString("background", null);
+        String headimage = pref.getString("head", null);
+        if(background != null)
+            drawerLayoutBack.setImageURI(Uri.parse(background));
+        if(headimage != null)
+            drawerLayoutHead.setImageURI(Uri.parse(headimage));
     }
 
     // 启动活动
