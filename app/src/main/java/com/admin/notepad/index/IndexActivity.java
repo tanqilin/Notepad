@@ -2,6 +2,8 @@ package com.admin.notepad.index;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,16 +19,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.admin.notepad.MainActivity;
 import com.admin.notepad.R;
+import com.admin.notepad.util.FileUtil;
 
 public class IndexActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     //记录用户首次点击返回键的时间,用于实现双击退出应用功能
     private long firstTime = 0;
     private SwipeRefreshLayout swipe_refresh;   // 下拉刷新
-
+    private ImageView drawerLayoutBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +40,7 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_index);
 
+        // 设置标题
         swipe_refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,6 +73,11 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
                 swipe_refresh.setRefreshing(false); // 关闭下拉刷新
             }
         });
+
+        // 抽屉中的控件不能直接获取到
+        View headerView = navigationView.getHeaderView(0);
+        drawerLayoutBack = (ImageView) headerView.findViewById(R.id.index_background);
+        initDrawerUserSetting();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -94,6 +105,13 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         return true;
     }
 
+    // 初始化抽屉菜单中用户的设置信息
+    private void initDrawerUserSetting(){
+        // 从缓存中加载用户设置好的图片
+        SharedPreferences pref = getSharedPreferences("Setting",MODE_PRIVATE);
+        String background = pref.getString("background", FileUtil.getLocalPath()+"/image/background.jpg");
+        drawerLayoutBack.setImageURI(Uri.parse(background));
+    }
 
     // 启动活动
     public static void actionStart(Context context){

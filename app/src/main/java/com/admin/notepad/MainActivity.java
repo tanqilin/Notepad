@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
         // 应用启动时创建应用根目录
         FileUtil.createAppDirectory();
+        // 创建一个文件夹用来存放设置图片
+        FileUtil.createFileDir("/image");
+        FileUtil.createFileDir("/cache");
 
         // 加载安全缓存设置，判断后选择启动什么页面
         SharedPreferences pref = getSharedPreferences("Setting",MODE_PRIVATE);
