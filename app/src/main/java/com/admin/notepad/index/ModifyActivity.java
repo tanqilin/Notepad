@@ -38,6 +38,7 @@ public class ModifyActivity extends AppCompatActivity implements View.OnClickLis
         appTitle = (TextView) findViewById(R.id.app_title);
         headPicture = (CircleImageView) findViewById(R.id.head_picture);
         appTitle.setText("修改资料");
+        headPicture.setOnClickListener(this);
         comeBack.setOnClickListener(this);
         headPicture.bringToFront();
 
@@ -48,9 +49,8 @@ public class ModifyActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v){
         switch (v.getId()) {
-            case R.id.come_back:
-                finish();
-                break;
+            case R.id.come_back:finish();break;
+            case R.id.head_picture:break;
             default:break;
         }
     }

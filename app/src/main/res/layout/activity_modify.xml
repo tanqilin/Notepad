@@ -69,6 +69,7 @@
 
                         <!-- 全圆角-->
                         <LinearLayout
+                            android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <LinearLayout style="@style/mid_layout">

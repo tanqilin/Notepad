@@ -10,12 +10,13 @@
 
     <ImageView
         android:id="@+id/come_back"
-        android:src="@drawable/setting_arrow"
+        android:src="@drawable/comeback"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:padding="3dp"
-        android:layout_height="match_parent"
-        android:rotation="180"/>
+        android:layout_marginLeft="3dp"
+        android:layout_gravity="center"
+        android:layout_height="match_parent"/>
 
     <TextView
         android:id="@+id/app_title"

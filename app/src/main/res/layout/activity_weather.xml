@@ -41,13 +41,12 @@
 
                         <Button
                             android:id="@+id/come_back"
-                            android:layout_width="20dp"
+                            android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginLeft="10dp"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
-                            android:rotation="180"
-                            android:background="@drawable/setting_arrow"/>
+                            android:background="@drawable/comeback"/>
 
                         <TextView
                             android:id="@+id/title_city"

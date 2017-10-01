@@ -12,14 +12,26 @@
         <LinearLayout style="@style/wrap_layout"
             android:padding="10dp"
             android:orientation="vertical">
-            <TextView
-                android:layout_gravity="center"
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:layout_marginBottom="3dp"
-                android:textSize="25dp"
-                android:text="修改密码"/>
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/lock"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginBottom="3dp"
+                    android:textSize="25dp"
+                    android:text="修改密码"/>
+            </LinearLayout>
 
             <View style="@style/bg_line"/>
 
