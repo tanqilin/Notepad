@@ -28,10 +28,11 @@
                 android:gravity="center_horizontal|bottom"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:id="@+id/back_image"
+                    android:id="@+id/background_image"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:src="@drawable/junji"/>
+                    android:src="@drawable/junji"
+                    android:scaleType="centerCrop"/>
                 <View style="@style/bg_line"/>
             </LinearLayout>
 

@@ -36,7 +36,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 * */
 public class ModifyActivity extends AppCompatActivity implements View.OnClickListener{
 
-    public static final int TAKE_PHOTO = 1; // 相机
+    public static final int SET_HEAD = 0; // 设置头像
+    public static final int SET_BACK = 1; // 设置背景
     public static final int CROP_PHOTO = 2; // 相册
 
     private TextView appTitle;
@@ -45,6 +46,7 @@ public class ModifyActivity extends AppCompatActivity implements View.OnClickLis
     private CircleImageView headPicture;
 
     private Uri imageUri;
+    private int activityType = 0; // 正在设置的类别
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,40 +54,52 @@ public class ModifyActivity extends AppCompatActivity implements View.OnClickLis
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_modify);
         comeBack = (ImageView) findViewById(R.id.come_back);
-        backgroundImage = (ImageView) findViewById(R.id.back_image);
+        backgroundImage = (ImageView) findViewById(R.id.background_image);
         appTitle = (TextView) findViewById(R.id.app_title);
         headPicture = (CircleImageView) findViewById(R.id.head_picture);
         appTitle.setText("修改资料");
+
+        backgroundImage.setOnClickListener(this);
         headPicture.setOnClickListener(this);
         comeBack.setOnClickListener(this);
         headPicture.bringToFront();
 
+        initUserSetting();
+    }
+
+    // 加载用户默认设置
+    private void initUserSetting(){
         // 从缓存中加载用户设置好的图片
         SharedPreferences pref = getSharedPreferences("Setting",MODE_PRIVATE);
         String background = pref.getString("background", null);
+        String head = pref.getString("head", null);
         backgroundImage.setImageURI(Uri.parse(background));
+        headPicture.setImageURI(Uri.parse(head));
     }
 
     @Override
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.come_back:finish();break;
+            case R.id.background_image:
+                activityType = 1;
+                openCamera(SET_BACK);break;
             case R.id.head_picture:
-                openCamera();
-                break;
+                activityType = 0;
+                openCamera(SET_HEAD);break;
             default:break;
         }
     }
 
     // 打开相册
-    public void openCamera(){
+    public void openCamera(int type){
         // 打开手机相册
         Intent intent = new Intent("android.intent.action.GET_CONTENT");
         intent.setType("image/*");
         intent.putExtra("crop", true);
         intent.putExtra("scale", true);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        startActivityForResult(intent, TAKE_PHOTO);
+        startActivityForResult(intent, type);
     }
 
     /*
@@ -96,10 +110,12 @@ public class ModifyActivity extends AppCompatActivity implements View.OnClickLis
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // 用户没选择图片就退出了
+        if(data == null) return;
         Uri uri = data.getData();
 
         switch (requestCode) {
-            case TAKE_PHOTO:
+            case SET_BACK:  // 设置背景
                 if (resultCode == RESULT_OK) {
                     saveImageToCach(uri);
                     // 从缓存中取出文件
@@ -109,18 +125,34 @@ public class ModifyActivity extends AppCompatActivity implements View.OnClickLis
                     startCropImage(3,2);
                 }
             break;
-            case CROP_PHOTO:
+            case SET_HEAD:  // 设置头像
+                if (resultCode == RESULT_OK) {
+                    saveImageToCach(uri);
+                    // 从缓存中取出文件
+                    File outputImage = new File(FileUtil.getLocalPath()+"/cache","cache.jpg");
+                    imageUri = Uri.fromFile(outputImage);
+
+                    startCropImage(1,1);
+                }
+                break;
+            case CROP_PHOTO:    // 保存并显示图片
                 if (resultCode == RESULT_OK) {
                     try {
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                        saveImageToImage(bitmap);
-                        /* 将Bitmap设定到ImageView */
-                        backgroundImage.setImageBitmap(bitmap);
+                        if(activityType == 0){
+                            saveImageToImage(bitmap,"head");
+                            headPicture.setImageBitmap(bitmap);
+                        }
+                        else if (activityType == 1){
+                            saveImageToImage(bitmap,"background");
+                            backgroundImage.setImageBitmap(bitmap);
+                        }
                     } catch (FileNotFoundException e) {
                         Log.e("Exception", e.getMessage(), e);
                     }
                 }
             break;
+            default:break;
         }
     }
 
@@ -159,10 +191,10 @@ public class ModifyActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    // 保存裁剪后的文件到文件夹
-    public void saveImageToImage(Bitmap bitmap){
+    // 保存裁剪后的文件到文件夹(文件，文件类型(背景图/头像))
+    public void saveImageToImage(Bitmap bitmap,String pictureType){
         // 文件存在则删除
-        File file = new File(FileUtil.getLocalPath()+"/image", "background.jpg");
+        File file = new File(FileUtil.getLocalPath()+"/image", pictureType + ".jpg");
         try{
             if (file.exists()) {
                 file.delete();
@@ -184,7 +216,7 @@ public class ModifyActivity extends AppCompatActivity implements View.OnClickLis
 
         // 把保存后的图片路径存入缓存
         SharedPreferences.Editor editor = getSharedPreferences("Setting",MODE_PRIVATE).edit();
-        editor.putString("background", file.toString());
+        editor.putString( pictureType , file.toString());
         editor.commit();
     }
 

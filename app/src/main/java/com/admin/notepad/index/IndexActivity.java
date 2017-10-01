@@ -32,6 +32,7 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
     private long firstTime = 0;
     private SwipeRefreshLayout swipe_refresh;   // 下拉刷新
     private ImageView drawerLayoutBack;
+    private ImageView drawerLayoutHead;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,20 +65,22 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        // 抽屉中的控件不能直接获取到
+        View headerView = navigationView.getHeaderView(0);
+        drawerLayoutBack = (ImageView) headerView.findViewById(R.id.index_background);
+        drawerLayoutHead = (ImageView) headerView.findViewById(R.id.icon_image);
+        initDrawerUserSetting();
+
         // 设置下拉刷新
         swipe_refresh.setColorSchemeResources(R.color.colorAccent);
         swipe_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // 响应下拉动作
+                initDrawerUserSetting();
                 swipe_refresh.setRefreshing(false); // 关闭下拉刷新
             }
         });
-
-        // 抽屉中的控件不能直接获取到
-        View headerView = navigationView.getHeaderView(0);
-        drawerLayoutBack = (ImageView) headerView.findViewById(R.id.index_background);
-        initDrawerUserSetting();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -102,6 +105,7 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        initDrawerUserSetting();
         return true;
     }
 
@@ -110,7 +114,9 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         // 从缓存中加载用户设置好的图片
         SharedPreferences pref = getSharedPreferences("Setting",MODE_PRIVATE);
         String background = pref.getString("background", FileUtil.getLocalPath()+"/image/background.jpg");
+        String headimage = pref.getString("head", FileUtil.getLocalPath()+"/image/background.jpg");
         drawerLayoutBack.setImageURI(Uri.parse(background));
+        drawerLayoutHead.setImageURI(Uri.parse(headimage));
     }
 
     // 启动活动
@@ -118,7 +124,6 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         Intent intent = new Intent(context,IndexActivity.class);
         context.startActivity(intent);
     }
-
 
     @Override
     public void onBackPressed() {
