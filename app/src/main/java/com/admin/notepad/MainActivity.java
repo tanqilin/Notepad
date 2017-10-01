@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.admin.notepad.index.IndexActivity;
+import com.admin.notepad.util.FileUtil;
 
 public class MainActivity extends AppCompatActivity  implements View.OnClickListener{
 
@@ -27,6 +28,10 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        // 应用启动时创建应用根目录
+        FileUtil.createAppDirectory();
+
+        // 加载安全缓存设置，判断后选择启动什么页面
         SharedPreferences pref = getSharedPreferences("Setting",MODE_PRIVATE);
         boolean safe = pref.getBoolean("safe", false);
         if(!safe){

@@ -266,6 +266,17 @@ public class ChangeCityActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
+    // 按下返回键响应函数
+    @Override
+    public void onBackPressed() {
+        if(currentLevel == LEVEL_COUNTY)
+            queryCitiese();
+        else if(currentLevel == LEVEL_CITY)
+            queryProvince();
+        else
+            finish();
+    }
+
     // 启动活动
     public static void actionStart(Context context){
         Intent intent = new Intent(context,ChangeCityActivity.class);

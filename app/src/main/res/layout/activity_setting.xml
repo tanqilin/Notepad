@@ -30,6 +30,7 @@
             <LinearLayout style="@style/wrap_layout" >
                 <!-- 上圆角-->
                 <LinearLayout
+                    android:id="@+id/modify_userdata"
                     style="@style/top_layout">
                     <TextView style="@style/usertext" android:text="修改资料" />
                     <ImageView style="@style/img_arrow"/>

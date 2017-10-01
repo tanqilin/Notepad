@@ -5,6 +5,10 @@
     <!-- 表明该应用需要使用网络请求，需要用户允许才能使用 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- 获取手机外部存储读取权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
@@ -35,6 +39,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".index.WeatherActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".index.ModifyActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

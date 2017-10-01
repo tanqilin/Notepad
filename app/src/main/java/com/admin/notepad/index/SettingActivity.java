@@ -35,6 +35,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private TextView appTitle;
     private LinearLayout setPassword;
     private LinearLayout changeCity;
+    private LinearLayout modifyData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +49,11 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         appTitle = (TextView) findViewById(R.id.app_title);
         setPassword = (LinearLayout) findViewById(R.id.set_password);
         changeCity = (LinearLayout) findViewById(R.id.change_city);
+        modifyData = (LinearLayout) findViewById(R.id.modify_userdata);
 
         setPassword.setOnClickListener(this);
         changeCity.setOnClickListener(this);
+        modifyData.setOnClickListener(this);
         comeBack.setOnClickListener(this);
         appTitle.setText("设置中心");
 
@@ -85,6 +88,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.change_city:
                 ChangeCityActivity.actionStart(SettingActivity.this); break;
+            case R.id.modify_userdata:
+                ModifyActivity.actionStart(SettingActivity.this); break;
             default:break;
         }
     }
@@ -116,8 +121,12 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 // 先验证原始密码
                 SharedPreferences pref = getSharedPreferences("Setting",MODE_PRIVATE);
                 String password = pref.getString("password", "000000");
+                if(newPass.length() != 6){
+                    Toast.makeText(SettingActivity.this, "密码必须是6位", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if(!old.equals(password)) {
-                    Toast.makeText(SettingActivity.this, "初始密码不正确", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SettingActivity.this, "原始密码不正确", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

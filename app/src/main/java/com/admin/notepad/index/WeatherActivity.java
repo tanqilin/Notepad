@@ -191,7 +191,7 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
                 });
             }
         });
-        //loadBingPic();
+        loadBingPic();
     }
 
     /*
