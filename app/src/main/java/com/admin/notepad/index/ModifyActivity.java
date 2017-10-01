@@ -17,14 +17,17 @@ import com.admin.notepad.util.FileUtil;
 
 import java.io.File;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /*
-* 创建于：2017,10,01 11:45 在公司电脑上
+* 创建于：2017,10,01 11:45 在公司电脑上 CircleImageView
 * 修改个人资料
 * */
 public class ModifyActivity extends AppCompatActivity implements View.OnClickListener{
 
     private TextView appTitle;
     private ImageView comeBack;
+    private CircleImageView headPicture;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +36,10 @@ public class ModifyActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_modify);
         comeBack = (ImageView) findViewById(R.id.come_back);
         appTitle = (TextView) findViewById(R.id.app_title);
+        headPicture = (CircleImageView) findViewById(R.id.head_picture);
         appTitle.setText("修改资料");
         comeBack.setOnClickListener(this);
+        headPicture.bringToFront();
 
         // 创建一个文件夹用来存放设置图片
         FileUtil.createFileDir("/image");

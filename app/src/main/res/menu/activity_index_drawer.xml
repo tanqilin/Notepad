@@ -3,19 +3,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/girl"
             android:title="我就是我" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_launcher"
+            android:icon="@drawable/userlog"
             android:title="日志管理" />
         <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_notifications_black_24dp"
+            android:icon="@drawable/group"
             android:title="分组设置" />
         <item
             android:id="@+id/nav_weather"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/weather"
             android:title="我这天气" />
     </group>
 
@@ -23,11 +23,11 @@
         <menu>
             <item
                 android:id="@+id/nav_share"
-                android:icon="@drawable/ic_info_black_24dp"
+                android:icon="@drawable/pass"
                 android:title="秘密区域" />
             <item
                 android:id="@+id/nav_setting"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/setting"
                 android:title="设置" />
         </menu>
     </item>

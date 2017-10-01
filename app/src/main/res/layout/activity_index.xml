@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        android:background="@drawable/saber"
+        android:background="#f5f5f5"
         app:headerLayout="@layout/nav_header_index"
         app:menu="@menu/activity_index_drawer" />
 

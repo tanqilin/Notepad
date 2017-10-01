@@ -1,15 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.admin.notepad.index.ModifyActivity">
 
-    <!--导航栏-->
-    <include
-        layout="@layout/define_top_bar"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
+        <!--导航栏-->
+        <include
+            layout="@layout/define_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-</android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="0dp">
+            <!-- 背景图设置 -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal|bottom"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/junji"/>
+                <View style="@style/bg_line"/>
+            </LinearLayout>
+
+            <!-- 头像设置 -->
+            <RelativeLayout
+                android:gravity="center"
+                android:layout_marginTop="-55dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!-- 把图片圆形化 -->
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/head_picture"
+                    android:layout_width = "100dp"
+                    android:layout_height = "100dp"
+                    android:padding="5dp"
+                    android:src="@drawable/msn"/>
+            </RelativeLayout>
+
+            <!-- 资料设置 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ScrollView
+                    android:id="@+id/weather_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="8dp"
+                    android:scrollbars="none"
+                    android:overScrollMode="never">
+
+                    <!--设置菜单-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- 全圆角-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <LinearLayout style="@style/mid_layout">
+                                <ImageView
+                                    android:layout_width="48dp"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/name"/>
+                                <TextView style="@style/usertext" android:text="你的名字"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_margin="8dp"
+                            style="@style/bg_line"/>
+
+                        <!-- 全圆角-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <LinearLayout style="@style/mid_layout">
+                                <ImageView
+                                    android:layout_width="48dp"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/phone"/>
+                                <TextView style="@style/usertext" android:text="你的电话放在这里"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_margin="8dp"
+                            style="@style/bg_line"/>
+                    </LinearLayout>
+
+                </ScrollView>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
