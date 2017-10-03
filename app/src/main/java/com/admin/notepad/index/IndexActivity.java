@@ -31,6 +31,7 @@ import com.admin.notepad.R;
 import com.admin.notepad.adapter.RecyclerCardAdapter;
 import com.admin.notepad.model.CardModel;
 import com.admin.notepad.util.FileUtil;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,9 +142,9 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         String background = pref.getString("background", null);
         String headimage = pref.getString("head", null);
         if(background != null)
-            drawerLayoutBack.setImageURI(Uri.parse(background));
+            Glide.with(this).load(background).into(drawerLayoutBack);
         if(headimage != null)
-            drawerLayoutHead.setImageURI(Uri.parse(headimage));
+            Glide.with(this).load(headimage).into(drawerLayoutHead);
     }
 
     // 设置状态栏为透明
