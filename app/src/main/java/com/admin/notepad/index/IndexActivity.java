@@ -111,15 +111,15 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            ThisMeActivity.actionStart(IndexActivity.this);
         } else if (id == R.id.nav_gallery) {
-
+            LogManageActivity.actionStart(IndexActivity.this);
         } else if (id == R.id.nav_weather) {
             WeatherActivity.actionStart(IndexActivity.this);
         } else if (id == R.id.nav_manage) {
             GroupActivity.actionStart(IndexActivity.this);
         } else if (id == R.id.nav_share) {
-
+            PrivacyActivity.actionStart(IndexActivity.this);
         } else if (id == R.id.nav_setting) {
             SettingActivity.actionStart(IndexActivity.this);
         }

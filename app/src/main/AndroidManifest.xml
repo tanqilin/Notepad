@@ -51,6 +51,15 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".index.GroupActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".index.LogManageActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".index.ThisMeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".index.PrivacyActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
