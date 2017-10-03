@@ -63,8 +63,6 @@ public class ChangeCityActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_change_city);
         appTitle = (TextView) findViewById(R.id.app_title);
         comeBack = (ImageView) findViewById(R.id.come_back);

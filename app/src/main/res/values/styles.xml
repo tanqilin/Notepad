@@ -4,44 +4,52 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- 设置状态栏为透明色 -->
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <!-- 状态栏颜色-->
+        <item name="colorPrimaryDark">@color/colorAccent</item>
+        <!-- 内容布局扩展至系统状态栏 -->
+        <item name="android:windowTranslucentStatus"> true </item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
+        <item name="android:windowTranslucentStatus"> true </item>
+    </style>
 
-        <!-- 最外层样式 -->
-        <style name="wrap_layout">
-            <item name="android:orientation">vertical</item>
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:layout_width">match_parent</item>
-            <item name="android:layout_marginLeft">8dp</item>
-            <item name="android:layout_marginRight">8dp</item>
-            <item name="android:layout_marginTop">8dp</item>
-            <item name="android:padding">1px</item>
-             <item name="android:background">@drawable/bg_layout_shape</item>
-         </style>
 
-         <!-- 共用层样式 -->
-         <style name="base_layout">
-             <item name="android:orientation">horizontal</item>
-              <item name="android:layout_width">match_parent</item>
-              <item name="android:layout_height">wrap_content</item>
-              <item name="android:paddingTop">16dp</item>
-              <item name="android:paddingBottom">16dp</item>
-              <item name="android:paddingLeft">12dp</item>
-              <item name="android:paddingRight">12dp</item>
-             <item name="android:gravity">center_vertical</item>
-              <item name="android:focusable">true</item>
-             <item name="android:clickable">true</item>
-         </style>
+    <!-- 最外层样式 -->
+    <style name="wrap_layout">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:padding">1px</item>
+        <item name="android:background">@drawable/bg_layout_shape</item>
+    </style>
+
+     <!-- 共用层样式 -->
+    <style name="base_layout">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+    </style>
 
         <style name="usertext">
              <!--<item name="android:textSize">16dp</item>-->

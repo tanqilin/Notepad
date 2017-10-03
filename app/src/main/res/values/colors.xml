@@ -8,4 +8,6 @@
     <color name="border_clo">#AAA</color>
     <color name="white">#FFF</color>
     <color name="blue">#419DE4</color>
+
+    <color name="transparent">#8000</color>
 </resources>

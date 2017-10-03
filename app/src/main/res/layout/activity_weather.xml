@@ -37,6 +37,7 @@
                     <!-- 顶部导航栏 -->
                     <RelativeLayout
                         android:layout_width="match_parent"
+                        android:layout_marginTop="25dp"
                         android:layout_height="?attr/actionBarSize">
 
                         <Button
