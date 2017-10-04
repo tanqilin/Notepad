@@ -29,6 +29,8 @@ import android.widget.Toast;
 import com.admin.notepad.MainActivity;
 import com.admin.notepad.R;
 import com.admin.notepad.adapter.RecyclerCardAdapter;
+import com.admin.notepad.db.UserLog;
+import com.admin.notepad.dbService.LogService;
 import com.admin.notepad.model.CardModel;
 import com.admin.notepad.util.FileUtil;
 import com.bumptech.glide.Glide;
@@ -45,11 +47,6 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
     private ImageView drawerLayoutBack;         // 抽屉背景图
     private ImageView drawerLayoutHead;         // 抽屉头像
     private RecyclerView recyclerView;          // 超级ListView
-
-    private CardModel[] cards = {new CardModel("进击的巨人",R.drawable.saber),
-            new CardModel("未闻花名",R.drawable.junji),
-            new CardModel("进击的巨人",R.drawable.msn),
-            new CardModel("进击的巨人",R.drawable.junji)};
 
     private List<CardModel> cardList = new ArrayList<>();   // 数据列表
     private RecyclerCardAdapter cardAdapter;    // 适配器
@@ -86,9 +83,6 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         initActivityStartTitle(drawer);
 
         // 渲染 RecyclerView List
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        GridLayoutManager layoutManager = new GridLayoutManager(this,2); // 布局管理
-        recyclerView.setLayoutManager(layoutManager);
         initRecyclerViewCard();
 
         // 设置下拉刷新
@@ -142,9 +136,10 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         String background = pref.getString("background", null);
         String headimage = pref.getString("head", null);
         if(background != null)
-            Glide.with(this).load(background).into(drawerLayoutBack);
+            drawerLayoutBack.setImageURI(Uri.parse(background));
         if(headimage != null)
-            Glide.with(this).load(headimage).into(drawerLayoutHead);
+            drawerLayoutHead.setImageURI(Uri.parse(headimage));
+        // Glide.with(this).load(background).into(drawerLayoutBack);
     }
 
     // 设置状态栏为透明
@@ -164,15 +159,19 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
 
     // 初始化数据用于渲染CardView
     private void initRecyclerViewCard(){
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        GridLayoutManager layoutManager = new GridLayoutManager(this,2); // 布局管理
+        recyclerView.setLayoutManager(layoutManager);
+
+        List<UserLog> logs = LogService.GetAllUserLog();
         cardList.clear();
-        for (int i = 0;i < 25; i++){
-            Random random = new Random();
-            int index = random.nextInt(cards.length);
-            cardList.add(cards[index]);
+        for (UserLog log : logs){
+            cardList.add(new CardModel(log));
         }
 
+        // Toast.makeText(IndexActivity.this,"加载中...",Toast.LENGTH_SHORT).show();
         // 把数据放入适配器
-        cardAdapter = new RecyclerCardAdapter(cardList);
+        cardAdapter = new RecyclerCardAdapter(cardList,R.layout.activity_recycler_item);
         recyclerView.setAdapter(cardAdapter);
     }
 
@@ -191,5 +190,13 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         } else {
             System.exit(0);
         }
+    }
+
+    // 活动由停止状态变为运行状态
+    @Override
+    protected void onRestart(){
+        initDrawerUserSetting();
+        initRecyclerViewCard();
+        super.onRestart();
     }
 }

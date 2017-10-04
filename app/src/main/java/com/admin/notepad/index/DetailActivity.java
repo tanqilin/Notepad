@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.admin.notepad.R;
+import com.admin.notepad.db.UserLog;
+import com.admin.notepad.dbService.LogService;
 import com.bumptech.glide.Glide;
 
 /*
@@ -36,7 +38,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     private TextView LogCreateTime;
 
     private int logId = 0;
-    private int logImage = 0;
+    private String logImage;
     private String logName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,18 +67,16 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     // 从数据库中查询并显示日志
     private void initFindAndShowLog(Intent intent){
         int logId = intent.getIntExtra(LOG_ID,0);
-        String logName = intent.getStringExtra(LOG_NAME);
-        int logImage = intent.getIntExtra(LOG_IMAGE,0);
+        UserLog log = LogService.GetLogById(logId);
 
-        // 设置页面标题
-        collapsingToolbar.setTitle(logName);
-        // 加载显示标题栏图片
-        Glide.with(this).load(logImage).into(titleImage);
+        // 设置页面标题,显示标题栏图片
+        collapsingToolbar.setTitle(log.getTitle());
+        Glide.with(this).load(log.getImage()).into(titleImage);
 
         // 显示日子相关信息
-        logTitle.setText(logName);
-        LogCreateTime.setText("2017-10-3 16:20");
-        logContent.setText(generateCardContent(logName));
+        logTitle.setText(log.getTitle());
+        LogCreateTime.setText(log.getCreateTime());
+        logContent.setText(log.getContent());
     }
 
     // 构建显示内容,用于测试

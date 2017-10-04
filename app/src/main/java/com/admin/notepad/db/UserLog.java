@@ -14,8 +14,9 @@ public class UserLog extends DataSupport {
     private String title;       // 标题
     private String userId;      // 创建人
     private String content;     // 内容
-    private String isSave;      // 是否保存
-    private String isDelete;    // 是否删除
+    private String image;       // 背景图片路径
+    private boolean isSave;      // 是否保存
+    private boolean isDelete;    // 是否删除
     private String createTime;  // 创建时间
     private String updateTime;  // 更新时间
 
@@ -40,11 +41,15 @@ public class UserLog extends DataSupport {
         return content;
     }
 
-    public String getIsSave() {
+    public String getImage(){
+        return image;
+    }
+
+    public boolean getIsSave() {
         return isSave;
     }
 
-    public String getIsDelete() {
+    public boolean getIsDelete() {
         return isDelete;
     }
 
@@ -77,11 +82,13 @@ public class UserLog extends DataSupport {
         this.content = content;
     }
 
-    public void setIsSave(String isSave) {
+    public void setImage(String image) {this.image = image;}
+
+    public void setIsSave(boolean isSave) {
         this.isSave = isSave;
     }
 
-    public void setIsDelete(String isDelete) {
+    public void setIsDelete(boolean isDelete) {
         this.isDelete = isDelete;
     }
 

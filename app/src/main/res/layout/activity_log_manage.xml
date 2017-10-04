@@ -12,9 +12,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <!--类似于listView的一个组件，比listView更强大-->
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/log_list"
+    <!-- 下拉刷新组件 -->
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!--类似于listView的一个组件，比listView更强大-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/log_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 </LinearLayout>

@@ -68,7 +68,6 @@ public class ModifyActivity extends AppCompatActivity implements View.OnClickLis
     // 加载用户默认设置
     private void initUserSetting(){
         // 从缓存中加载用户设置好的图片
-        String defaultStr = FileUtil.getLocalPath()+"/image/background.jpg";
         SharedPreferences pref = getSharedPreferences("Setting",MODE_PRIVATE);
         String background = pref.getString("background", null);
         String head = pref.getString("head", null);

@@ -28,6 +28,7 @@
                 android:layout_gravity="left|end|center"
                 android:id="@+id/spinner2" />
             <EditText
+                android:id="@+id/create_log_title"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -48,7 +49,7 @@
 
         <!-- 文章内容输入区域 -->
         <ScrollView
-            android:id="@+id/weather_layout"
+            android:id="@+id/create_log_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
@@ -67,6 +68,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                             <EditText
+                                android:id="@+id/create_log_content"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="left|top"

@@ -9,17 +9,28 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.admin.notepad.R;
+import com.admin.notepad.db.LogGroup;
+import com.admin.notepad.dbService.LogGroupService;
+import com.admin.notepad.dbService.LogService;
 import com.admin.notepad.util.DateUtil;
 import com.admin.notepad.util.FileUtil;
 import com.bumptech.glide.Glide;
@@ -29,6 +40,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CreateActivity extends AppCompatActivity implements View.OnClickListener {
@@ -40,6 +52,9 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
     private ImageView comeBack;
     private ImageView logImage;
     private ImageButton uploadImg;
+    private EditText createLogTitle;
+    private EditText createLogContent;
+
     // 下拉列表
     private Spinner spinner;
     private List<String> data_list;
@@ -52,7 +67,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
     private String savePath;
     private String logContent;
     private String logTitle;
-    private int logGroupId;
+    private LogGroup logGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +77,9 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
         comeBack = (ImageView) findViewById(R.id.come_back);
         logImage = (ImageView) findViewById(R.id.log_image);
         uploadImg = (ImageButton) findViewById(R.id.upload_log_image);
+        createLogTitle = (EditText) findViewById(R.id.create_log_title);
+        createLogContent = (EditText) findViewById(R.id.create_log_content);
+
         appTitle.setText("记录每一刻");
         comeBack.setOnClickListener(this);
         uploadImg.setOnClickListener(this);
@@ -71,7 +89,11 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,int pos, long id) {
-                Toast.makeText(CreateActivity.this, "你点击的是:"+data_list.get(pos), Toast.LENGTH_SHORT).show();
+                // 获取用户选择的分组
+                logGroup =  LogGroupService.GetLogGroupByName(data_list.get(pos));
+
+                if(data_list.get(pos) == "新建分组")
+                    showPopupWindow(CreateActivity.this,CreateActivity.this.findViewById(R.id.create_log_layout));
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -85,11 +107,14 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
 
     // 初始化Spinner下拉菜单数据
     public void initSpinnerDownData(){
-        //数据
+        List<LogGroup> groups = LogGroupService.GetAllLogGroup();
+
+        // 绑定数据
         data_list = new ArrayList<String>();
         data_list.add("分组");
-        data_list.add("历史典故");
-        data_list.add("生活趣事");
+        for(LogGroup groupName : groups){
+            data_list.add(groupName.getGroupName());
+        }
         data_list.add("新建分组");
 
         //适配器
@@ -213,9 +238,71 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
         return file.toString();
     }
 
+    // 新建分组模态框
+    public void showPopupWindow(Context context,View parent){
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View vPopupWindow=inflater.inflate(R.layout.activity_group_create_model, null, false);
+        final PopupWindow pw= new PopupWindow(vPopupWindow, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,true);
+
+        //OK按钮及其处理事件
+        Button btnOK = (Button) vPopupWindow.findViewById(R.id.dialog_ok);
+        final EditText groupName = (EditText) vPopupWindow.findViewById(R.id.group_name);
+        final EditText groupPassword = (EditText) vPopupWindow.findViewById(R.id.group_password);
+        groupPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        btnOK.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                String name = groupName.getText().toString();
+                String pass = groupPassword.getText().toString();
+
+                if (TextUtils.isEmpty(name.replace(" ",""))){
+                    Toast.makeText(CreateActivity.this,"分组名不能为空",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // 存入数据库
+                LogGroupService.InsertLogGroup(name,pass);
+                Toast.makeText(CreateActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
+                initSpinnerDownData();
+                pw.dismiss();
+            }
+        });
+
+        //Cancel按钮及其处理事件
+        Button btnCancel=(Button)vPopupWindow.findViewById(R.id.dialog_cancel);
+        btnCancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                pw.dismiss();//关闭
+            }
+        });
+        //显示popupWindow对话框
+        pw.showAtLocation(parent, Gravity.CENTER, 0, 0);
+    }
+
     // 启动活动
     public static void actionStart(Context context){
         Intent intent = new Intent(context,CreateActivity.class);
         context.startActivity(intent);
+    }
+
+    // 保存日志
+    private void saveLog(){
+        logTitle = createLogTitle.getText().toString();
+        logContent = createLogContent.getText().toString();
+
+        if(TextUtils.isEmpty(logTitle.replace(" ","")) && TextUtils.isEmpty(logContent.replace(" ",""))) {
+            return;
+        }
+
+        // 存入数据库
+        LogService.InsertUserLog(logTitle,logContent,savePath,logGroup);
+        Toast.makeText(CreateActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy(){
+        saveLog();
+        super.onDestroy();
     }
 }
